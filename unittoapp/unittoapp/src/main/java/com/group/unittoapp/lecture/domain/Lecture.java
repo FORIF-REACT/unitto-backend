@@ -1,9 +1,7 @@
 package com.group.unittoapp.lecture.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.group.unittoapp.user.domain.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -56,8 +54,9 @@ public class Lecture {
     @Column(name = "apply_content")
     private String applyContent;
 
-    @Column(name = "status")
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private LectureStatus lectureStatus;
 
 
 }

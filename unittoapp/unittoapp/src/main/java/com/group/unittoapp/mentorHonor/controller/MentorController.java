@@ -23,6 +23,6 @@ public class MentorController {
 
     @GetMapping("/ranking")
     public ResponseEntity<List<MentorRankResponse>> getMentorList(){
-        return new ResponseEntity<>(mentorService.getMentorList(), HttpStatus.OK)
+        return new ResponseEntity<>(mentorService.getMentorList(), HttpStatus.OK);
     }
 }

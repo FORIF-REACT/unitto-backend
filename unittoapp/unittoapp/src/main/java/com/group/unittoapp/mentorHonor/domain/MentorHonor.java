@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MentorHonor {
     @Id
-    private String email;
+    private String lectureId;
     private Long professional;
     private Long goodTeaching;
     private Long mentorPreparation;
