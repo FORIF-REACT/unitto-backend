@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "users") // 테이블 이름 지정
 public class User {
     @Id
-    @Column(name = "email")
+    @Column(name = "email",nullable = false)
     private String email;
 
     @Column(name = "username")
