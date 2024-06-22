@@ -56,7 +56,6 @@ public class UserService {
 
     public User getUser(String email) {
        return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("유저가 존재하지 않습니다."));
-
     }
 
     public User updateUser(UserUpdateRequest request, User user) {
