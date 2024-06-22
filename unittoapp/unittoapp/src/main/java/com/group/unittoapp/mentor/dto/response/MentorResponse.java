@@ -11,7 +11,6 @@ public class MentorResponse {
     private String gender;
     private String preferRegion;
     private Long point;
-    //
     private String lectureName;
     private String meetType;
     private String lectureContent;
