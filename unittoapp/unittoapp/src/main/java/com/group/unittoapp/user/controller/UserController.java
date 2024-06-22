@@ -44,7 +44,7 @@ public class UserController {
 
     @RequireJWT
     @PatchMapping("/user")
-    public ResponseEntity<User> patchUser(
+    public ResponseEntity<User> updateUser(
             @RequestHeader("Authorization") String token,
             @RequestBody UserUpdateRequest request
     ) {
@@ -66,10 +66,10 @@ public class UserController {
 
     @RequireJWT
     @GetMapping("/user")
-    public ResponseEntity<UserCreateResponse> getUser(
+    public ResponseEntity<User> getUser(
             @RequestHeader("Authorization") String token
     ){
         User user = userService.validateUserExist(token);
-        return ResponseEntity.ok(userService.getUserInfo(user));
+        return ResponseEntity.ok(userService.getUser(user.getEmail()));
     }
 }
