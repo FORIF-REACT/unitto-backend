@@ -1,75 +1,45 @@
 package com.group.unittoapp.user.controller;
 
-import com.group.unittoapp.jwt.RequireJWT;
 import com.group.unittoapp.user.domain.User;
 import com.group.unittoapp.user.dto.request.UserCreateRequest;
+import com.group.unittoapp.user.dto.request.UserSignRequest;
 import com.group.unittoapp.user.dto.request.UserUpdateRequest;
-import com.group.unittoapp.user.dto.response.UserCreateResponse;
 import com.group.unittoapp.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test(){
-        return new ResponseEntity<>("연결 성공", HttpStatus.OK);
-    }
-    @PostMapping("/signin")
-    public ResponseEntity<User> signIn(
-            @RequestHeader("Authorization") String token
-    ) {
-        User user = userService.validateUserExist(token);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+    @PostMapping("/users")
+    public ResponseEntity<User> saveUser(@RequestBody UserCreateRequest request){
+        return new ResponseEntity<>(userService.saveUser(request),HttpStatus.OK);
     }
 
-
-    @RequireJWT
-    @PostMapping("/signup")
-    public ResponseEntity<User> signUp(
-            @RequestHeader("Authorization") String token,
-            @RequestBody UserCreateRequest userCreateRequest
-    ) {
-        userService.validateSignUp(token);
-        User user = userService.setUser(userCreateRequest, token);
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    @PostMapping("/login")
+    public ResponseEntity<User> signIn(@RequestBody UserSignRequest request){
+        return new ResponseEntity<>(userService.validateUser(request), HttpStatus.OK);
+    }
+    @GetMapping("/users/{email}")
+    public ResponseEntity<User> getUser(@PathVariable String email){
+        return new ResponseEntity<>(userService.getUser(email), HttpStatus.OK);
     }
 
-    @RequireJWT
-    @PatchMapping("/user")
-    public ResponseEntity<User> updateUser(
-            @RequestHeader("Authorization") String token,
-            @RequestBody UserUpdateRequest request
-    ) {
-        User user = userService.validateUserExist(token);
-
-        return new ResponseEntity<>(userService.updateUser(request ,user),HttpStatus.OK);
+    @PatchMapping("/users/{email}")
+    public ResponseEntity<User> patchUser(@RequestBody UserUpdateRequest request) {
+        return new ResponseEntity<>(userService.patchUser(request), HttpStatus.OK);
     }
 
-    @RequireJWT
-    @DeleteMapping("/user")
-    public ResponseEntity<String> deleteUser(
-            @RequestHeader("Authorization") String token
-    ) {
-        User user = userService.validateUserExist(token);
-        userService.deleteUser(user);
 
-        return new ResponseEntity<>("회원 삭제 성공", HttpStatus.OK);
+    @DeleteMapping("/users/{email}")
+    public void deleteUser(@PathVariable String email){
+        userService.deleteUser(email);
     }
 
-    @RequireJWT
-    @GetMapping("/user")
-    public ResponseEntity<User> getUser(
-            @RequestHeader("Authorization") String token
-    ){
-        User user = userService.validateUserExist(token);
-        return ResponseEntity.ok(userService.getUser(user.getEmail()));
-    }
+
 }
