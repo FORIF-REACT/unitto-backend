@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user") // 테이블 이름 지정
+@Table(name = "users") // 테이블 이름 지정
 public class User {
     @Id
     @Column(name = "email")

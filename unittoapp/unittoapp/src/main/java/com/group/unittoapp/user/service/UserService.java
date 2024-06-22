@@ -54,7 +54,12 @@ public class UserService {
         return user;
     }
 
-    public User patchUser(UserUpdateRequest request, User user) {
+    public User getUser(String email) {
+       return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("유저가 존재하지 않습니다."));
+
+    }
+
+    public User updateUser(UserUpdateRequest request, User user) {
         user.setEmail(request.getEmail());
         user.setUsername(request.getUsername());
         user.setAdmissionYear(request.getAdmissionYear());
@@ -97,5 +102,7 @@ public class UserService {
         return userRepository.findByEmail(inf[0])
                 .orElseThrow(() -> new EntityNotFoundException("유저가 없습니다."));
     }
+
+
 
 }
