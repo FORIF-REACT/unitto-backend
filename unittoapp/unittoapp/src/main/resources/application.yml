@@ -3,10 +3,10 @@ spring:
     name: unittoapp
 
   datasource:
-    url: ${url}
-    username: ${username}
-    password: ${password}
-    driver-class-name: ${driverClassName}
+    url: jdbc:postgresql://aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres
+    username: postgres.rlqfliygxornzhcjggnw
+    password: jNi+3ec,VV)*d3D
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
